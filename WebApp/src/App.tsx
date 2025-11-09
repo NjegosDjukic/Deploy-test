@@ -1,10 +1,10 @@
-import './App.css';
+import { Welcome } from './components/Welcome';
 
 function App() {
   return (
-    <>
-      <span>This is my new test app</span>
-    </>
+    <div className="w-full h-screen bg-yellow-200">
+      <Welcome />
+    </div>
   );
 }
 
