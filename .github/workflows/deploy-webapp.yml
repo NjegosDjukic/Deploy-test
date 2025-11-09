@@ -1,10 +1,12 @@
 name: Build and deploy webapp
 
-# Trigger on push to main branch
+# Trigger on push to main, but only if files in WebApp change
 on:
   push:
     branches:
       - main
+    paths:
+      - "WebApp/**" # <-- only trigger if files in WebApp folder change
 
 jobs:
   deploy:
