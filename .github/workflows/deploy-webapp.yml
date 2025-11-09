@@ -1,4 +1,4 @@
-name: Deploy WebApp to Netlify
+name: Build and deploy webapp
 
 # Trigger on push to main branch
 on:
