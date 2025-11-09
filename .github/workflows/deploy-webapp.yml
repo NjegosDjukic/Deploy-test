@@ -24,12 +24,12 @@ jobs:
       # 3. Install dependencies
       - name: Install dependencies
         run: npm install
-        working-directory: webapp
+        working-directory: WebApp
 
       # 4. Build Vite app
       - name: Build Vite app
         run: npm run build
-        working-directory: webapp
+        working-directory: WebApp
 
       # 5. Deploy to Netlify
       - name: Deploy to Netlify
@@ -39,4 +39,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        working-directory: webapp
+        working-directory: WebApp
