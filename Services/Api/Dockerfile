@@ -22,8 +22,9 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Use the port Render provides
-ENV ASPNETCORE_URLS=http://+:$PORT
-EXPOSE $PORT
+ARG PORT=8080
+ENV ASPNETCORE_URLS=http://+:${PORT}
+EXPOSE ${PORT}
 
 # Run the app
 ENTRYPOINT ["dotnet", "Api.dll"]
