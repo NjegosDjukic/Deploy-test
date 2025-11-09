@@ -21,11 +21,9 @@ WORKDIR /app
 # Copy compiled output from build stage
 COPY --from=build /app/publish .
 
-# Expose port 8080 for Render
-EXPOSE 8080
-
-# Set environment variable for Kestrel
-ENV ASPNETCORE_URLS=http://+:8080
+# Use the port Render provides
+ENV ASPNETCORE_URLS=http://+:$PORT
+EXPOSE $PORT
 
 # Run the app
 ENTRYPOINT ["dotnet", "Api.dll"]
