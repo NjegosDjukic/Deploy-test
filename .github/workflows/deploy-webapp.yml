@@ -1,6 +1,6 @@
-name: Deploy to Netlify
+name: Deploy WebApp to Netlify
 
-# Trigger only on merge to main
+# Trigger on push to main branch
 on:
   push:
     branches:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js environment
+      # 2. Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -24,16 +24,19 @@ jobs:
       # 3. Install dependencies
       - name: Install dependencies
         run: npm install
+        working-directory: webapp
 
-      # 4. Build the Vite app
+      # 4. Build Vite app
       - name: Build Vite app
         run: npm run build
+        working-directory: webapp
 
       # 5. Deploy to Netlify
       - name: Deploy to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           npm install -g netlify-cli
           netlify deploy --dir=dist --prod --site=$NETLIFY_SITE_ID
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        working-directory: webapp
