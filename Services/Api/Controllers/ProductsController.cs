@@ -20,8 +20,7 @@ namespace Api.Controllers
         [HttpGet]
         public List<Product> Get()
         {
-            var products = _productService.GetProducts();
-            return products;
+            return _productService.GetProducts();
         }
     }
 }
