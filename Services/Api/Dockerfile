@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy the project file and restore dependencies
+# Copy project file and restore dependencies
 COPY Api.csproj ./
 RUN dotnet restore Api.csproj
 
@@ -21,10 +21,11 @@ WORKDIR /app
 # Copy compiled output from build stage
 COPY --from=build /app/publish .
 
-# Use the port Render provides
-ARG PORT=8080
+# Render automatically provides $PORT (e.g. 10000)
+# Bind ASP.NET Core to that port
 ENV ASPNETCORE_URLS=http://+:${PORT}
-EXPOSE ${PORT}
 
-# Run the app
+# EXPOSE is optional but helpful for local dev
+EXPOSE 8080
+
 ENTRYPOINT ["dotnet", "Api.dll"]
