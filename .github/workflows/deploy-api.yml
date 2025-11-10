@@ -26,12 +26,9 @@ jobs:
           docker build -t api-app Services/Api
 
       # 4. Push Docker image to Render
-      - name: Deploy to Render
+      - name: Trigger Render Deploy via Deploy Hook
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Accept: application/json" \
-            "https://api.render.com/deploy/${RENDER_SERVICE_ID}"
+          echo "Triggering Render Deploy..."
+          curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL"
